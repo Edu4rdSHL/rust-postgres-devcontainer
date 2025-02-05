@@ -1,0 +1,53 @@
+// This is the devcontainer.json file for the Rust development container
+// It's intended to be used for many different projects, so it's a bit more generic.
+// All you need is to create a symlink to /var/local/development from the directory
+// where you have all your Rust projects. You can however override the options,
+// check the README.md for more information.
+{
+    "name": "rust_devcontainer",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+            },
+            "extensions": [
+                "rust-lang.rust-analyzer",
+                "ms-vscode.cpptools",
+                "vadimcn.vscode-lldb",
+                "ms-vscode.cmake-tools",
+                "twxs.cmake",
+                "fill-labs.dependi",
+                "tamasfe.even-better-toml",
+                "GitLab.gitlab-workflow",
+                "ms-ossdata.vscode-postgresql",
+                "mtxr.sqltools",
+                "mtxr.sqltools-driver-pg"
+            ]
+        }
+    },
+    "workspaceFolder": "/home/vscode/workspace",
+    "workspaceMount": "source=/var/local/development,target=/home/vscode/workspace,type=bind,consistency=cached",
+    // Handle CARGO_HOME=/usr/local/cargo creating a volume for the cargo data to persist between runs
+    "mounts": [
+        {
+            "source": "cargo-cache-rust_devcontainer",
+            "target": "/usr/local/cargo",
+            "type": "volume"
+        },
+        // Handle the postgres data directory
+        {
+            "source": "postgres-rust_devcontainer",
+            "target": "/var/lib/postgresql/15/main",
+            "type": "volume"
+        }
+    ],
+    "runArgs": [
+        "--restart=always",
+        "--name=rust_devcontainer"
+    ],
+    "postStartCommand": "sudo service postgresql start",
+    "remoteUser": "vscode"
+}
