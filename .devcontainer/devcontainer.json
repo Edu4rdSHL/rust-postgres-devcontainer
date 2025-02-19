@@ -1,10 +1,11 @@
+// This is intended to run **ONLY** on Podman
 // This is the devcontainer.json file for the Rust development container
 // It's intended to be used for many different projects, so it's a bit more generic.
 // All you need is to create a symlink to /var/local/development from the directory
 // where you have all your Rust projects. You can however override the options,
 // check the README.md for more information.
 {
-    "name": "rust_devcontainer",
+    "name": "rust_personal-devcontainer",
     "build": {
         "dockerfile": "Dockerfile"
     },
@@ -28,26 +29,25 @@
             ]
         }
     },
-    "workspaceFolder": "/home/vscode/workspace",
-    "workspaceMount": "source=/var/local/development,target=/home/vscode/workspace,type=bind,consistency=cached",
+    "workspaceFolder": "/workspace",
+    "workspaceMount": "source=/var/local/personal-development,target=/workspace,type=bind,consistency=cached",
     // Handle CARGO_HOME=/usr/local/cargo creating a volume for the cargo data to persist between runs
     "mounts": [
         {
-            "source": "cargo-cache-rust_devcontainer",
-            "target": "/usr/local/cargo",
+            "source": "cargo-cache-rust-personal_devcontainer",
+            "target": "/usr/local/cargo:U",
             "type": "volume"
         },
         // Handle the postgres data directory
         {
-            "source": "postgres-rust_devcontainer",
-            "target": "/var/lib/postgresql/15/main",
+            "source": "postgres-rust-personal_devcontainer",
+            "target": "/var/lib/postgresql/15/main:U",
             "type": "volume"
         }
     ],
     "runArgs": [
         "--restart=always",
-        "--name=rust_devcontainer"
+        "--name=rust_personal-devcontainer"
     ],
-    "postStartCommand": "sudo service postgresql start",
-    "remoteUser": "vscode"
+    "postStartCommand": "service postgresql start"
 }
