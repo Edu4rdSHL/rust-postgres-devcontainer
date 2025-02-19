@@ -4,6 +4,8 @@ This is a [devcontainer](https://containers.dev/) for Rust and PostgreSQL develo
 
 # How to use
 
+**Important**: This container will only work with Podman.
+
 1. Install the [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension for Visual Studio Code.
 2. Add a `.devcontainer/devcontainer.json` file to your repository with the following content:
 
