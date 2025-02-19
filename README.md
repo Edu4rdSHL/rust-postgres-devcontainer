@@ -31,19 +31,19 @@ This is a [devcontainer](https://containers.dev/) for Rust and PostgreSQL develo
         }
     },
     // Mount the workspace folder into the container
-    "workspaceMount": "source=${localWorkspaceFolder},target=/home/vscode/workspace,type=bind,consistency=cached",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
     "mounts": [
         // Note: The volumes cargo-cache-rust_devcontainer and postgres-rust_devcontainer are automatically used
         // to cache the cargo and postgresql data directories respectively. You can override them by setting the
         // mounts here. Example:
         //  {
         //     "source": "cargo-cache-${localWorkspaceFolderBasename}",
-        //     "target": "/usr/local/cargo",
+        //     "target": "/usr/local/cargo:U",
         //     "type": "volume"
         // },
         // {
         //     "source": "postgres-${localWorkspaceFolderBasename}",
-        //     "target": "/var/lib/postgresql/15/main",
+        //     "target": "/var/lib/postgresql/15/main:U",
         //     "type": "volume"
         // }        
     ],
